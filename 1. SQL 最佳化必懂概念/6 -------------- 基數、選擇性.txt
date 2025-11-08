@@ -1,4 +1,18 @@
+----------- 先分析資料
+BEGIN
+  DBMS_STATS.GATHER_TABLE_STATS(
+  ownname =>'john',
+  tabname=>'test',
+  estimate_percent=>100,
+  method_opt=>'for all columns size 1',
+  no_invalidate => true,
+  degree =>1,
+  cascade => true);
+end;
 
+
+
+----------- 求得基數、選擇性
 select 
 a.column_name,							--欄位名稱
 b.num_rows,							--table總幾筆
