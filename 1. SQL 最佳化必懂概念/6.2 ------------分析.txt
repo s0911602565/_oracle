@@ -1,4 +1,4 @@
-abc
+123
 select 
 a.column_name,							--欄位名稱
 b.num_rows,							--table總幾筆
