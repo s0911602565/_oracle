@@ -1,4 +1,4 @@
-版本3
+版本0
 -------- 先查出有 where 的條件
 SELECT OBJECT_id , OWNER FROM TEST  
 
