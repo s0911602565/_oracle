@@ -1,0 +1,9 @@
+  DBMS_STATS.GATHER_TABLE_STATS(
+  ownname =>'john',
+  tabname=>'test',
+  estimate_percent=>100,
+  method_opt=>'for all columns size 1',
+  no_invalidate => true,
+  degree =>1,
+  cascade => true);
+end;

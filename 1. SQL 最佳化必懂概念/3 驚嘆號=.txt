@@ -1,0 +1,5 @@
+select *  from test  where owner=:B1 
+
+會跳出一個框框 輸入值
+例如username 
+彈出框框 輸入 johnlee

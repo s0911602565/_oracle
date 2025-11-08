@@ -1,0 +1,14 @@
+
+select 
+a.column_name,							--欄位名稱
+b.num_rows,							--table總幾筆
+a.NUM_NULLS ,							--有幾個null
+a.num_distinct Cardinality,					--基數 ,例如 男女 = 基數為2
+round(a.num_distinct / b.num_rows *100 , 2)selectivity,		--選擇性 ,公式
+a.histogram,
+a.num_buckets
+from dba_tab_col_statistics a , dba_tables b 
+where a.owner = b.owner 
+and a.table_name = b.table_name
+and a.owner= 'JOHN'
+and a.table_name = 'TEST';
