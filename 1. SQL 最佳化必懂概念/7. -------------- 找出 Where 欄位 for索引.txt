@@ -4,11 +4,11 @@ SELECT OBJECT_id , OWNER FROM TEST
 
 
 --------- 更新
-begin 
+ 
 
-dbms_stats.flush_database_monitoring_info;
+exec dbms_stats.flush_database_monitoring_info;
 
-end;
+ 
 
 
 --------- 找出 Where 欄位
@@ -28,8 +28,9 @@ sys.col_usage$ u ,
 sys.obj$ o ,
 sys.col$ c,
 sys.user$ r 
-where o.obj# = u.obj#
+where 
+o.obj# = u.obj#
 and c.obj# = u.obj#
 and c.col# = u.intcol#
 and r.name = 'JOHN'
-and o.name = 'TEST'
+and o.name = 'TEST';

@@ -1,0 +1,26 @@
+SELECT OWNER,column_name,Cardinality,selectivity,'Need index' as notice
+from 
+(select 
+b.owner,a.column_name,a.num_distinct Cardinality,round(a.num_distinct / b.num_rows *100 , 2)selectivity
+from dba_tab_col_statistics a , dba_tables b
+where  
+a.owner = b.owner
+and a.table_name = b.table_name
+and a.owner = 'JOHN'
+and a.table_name = 'TEST')
+where 
+selectivity > 0
+and column_name not in (select column_name
+                        from dba_ind_columns 
+                        where 
+                        table_owner ='JOHN'
+                        and table_name ='TEST')
+and column_name in (select c.name 
+                    from sys.col_usage$ u , sys.obj$ o , sys.col$ c, sys.user$ r 
+                    where 
+                    o.obj# = u.obj#
+                    and c.obj# = u.obj#
+                    and c.col# = u.intcol#
+                    and r.name = 'JOHN'
+                    and o.name = 'TEST');
+                            

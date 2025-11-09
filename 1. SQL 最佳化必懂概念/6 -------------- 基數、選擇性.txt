@@ -4,8 +4,9 @@ BEGIN
   ownname =>'john',
   tabname=>'test',
   estimate_percent=>100,
-  method_opt=>'for all columns size 1',
-  no_invalidate => true,
+  --method_opt=>'for all columns size 1', -- 沒有收集直方圖,導致CBO算不準
+  method_opt=>'for columns owner size skewonly',
+  no_invalidate => false,
   degree =>1,
   cascade => true);
 end;
@@ -14,15 +15,16 @@ end;
 
 ----------- 求得基數、選擇性
 select 
-a.column_name,							--欄位名稱
-b.num_rows,							--table總幾筆
-a.NUM_NULLS ,							--有幾個null
+a.column_name, --欄位名稱
+b.num_rows, --table總幾筆
+a.NUM_NULLS , --有幾個null
 a.num_distinct Cardinality,					--基數 ,例如 男女 = 基數為2
-round(a.num_distinct / b.num_rows *100 , 2)selectivity,		--選擇性 ,公式
+round(a.num_distinct / b.num_rows *100 , 2)selectivity,		--選擇性 ,公式 基數/總幾筆*100 
 a.histogram,
 a.num_buckets
 from dba_tab_col_statistics a , dba_tables b 
 where a.owner = b.owner 
 and a.table_name = b.table_name
 and a.owner= 'JOHN'
-and a.table_name = 'TEST';
+and a.table_name = 'TEST'
+-- and round(a.num_distinct / b.num_rows *100 , 2) > 0 		--找出選擇性不為0 %
