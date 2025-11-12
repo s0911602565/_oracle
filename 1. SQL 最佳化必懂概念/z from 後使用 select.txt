@@ -1,0 +1,1 @@
+select * from (select object_name , count(*) from test group by object_name ) where rownum<=10

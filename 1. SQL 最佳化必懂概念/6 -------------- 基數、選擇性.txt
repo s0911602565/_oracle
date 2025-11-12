@@ -1,8 +1,8 @@
 ----------- 先分析資料
 BEGIN
   DBMS_STATS.GATHER_TABLE_STATS(
-  ownname =>'john',
-  tabname=>'test',
+  ownname =>'JOHN',
+  tabname=>'TEST',
   estimate_percent=>100,
   --method_opt=>'for all columns size 1', -- 沒有收集直方圖,導致CBO算不準
   method_opt=>'for columns owner size skewonly',
@@ -22,7 +22,7 @@ a.num_distinct Cardinality,					--基數 ,例如 男女 = 基數為2
 round(a.num_distinct / b.num_rows *100 , 2)selectivity,		--選擇性 ,公式 基數/總幾筆*100 
 a.histogram,
 a.num_buckets
-from dba_tab_col_statistics a , dba_tables b 
+from dba_tab_col_statistics a , dba_tables b  			--dba_tab_col_statistics 和 dba_tables 是系統視圖 (Data Dictionary Views)， 它們是從內部的 SYS 資料字典表（例如 SYS.TAB$、SYS.COL$）組成的視圖
 where a.owner = b.owner 
 and a.table_name = b.table_name
 and a.owner= 'JOHN'

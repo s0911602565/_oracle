@@ -1,0 +1,1 @@
+select * from dba_ind_columns where table_owner ='JOHN' and table_name = 'TEST'

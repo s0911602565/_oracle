@@ -1,0 +1,45 @@
+版本0
+-------- 先查出有 where 的條件
+SELECT OBJECT_id , OWNER FROM TEST  
+
+
+--------- 更新
+ 
+
+exec dbms_stats.flush_database_monitoring_info;
+
+ 
+
+
+--------- 找出 Where 欄位
+select
+r.name owner,
+o.name table_name,
+c.name column_name,
+equality_preds,
+equijoin_preds,
+nonequijoin_preds,
+range_preds,
+like_preds,
+null_preds,
+timestamp
+from 
+sys.col_usage$ u ,
+sys.obj$ o ,
+sys.col$ c,
+sys.user$ r 
+where 
+o.obj# = u.obj#
+and c.obj# = u.obj#
+and c.col# = u.intcol#
+and r.name = 'JOHN'
+and o.name = 'TEST';
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+表名		作用												關聯視圖
+SYS.COL_USAGE$	儲存「查詢優化器」紀錄過的欄位使用資訊，例如欄位出現在 WHERE 條件、JOIN、LIKE 等次數		內部被 DBA_TAB_COL_STATISTICS、DBA_TAB_COL_USAGE 等使用
+SYS.OBJ$	所有 Oracle 物件（表格、索引、檢視、同義字、程序...）的基本資料，如 OBJ#、物件名稱、類型	幾乎所有 DBA_ 視圖都會連這張表
+SYS.COL$	儲存所有欄位的基本定義（哪個表有哪個欄位、欄位型別、長度等）					被 DBA_TAB_COLUMNS 等視圖引用
+SYS.USER$	儲存使用者（schema）資訊，每個使用者一筆資料							被 DBA_USERS、ALL_USERS、USER_USERS 使用
