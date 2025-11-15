@@ -1,0 +1,1 @@
+create table t_stats as select * from dba_objects;

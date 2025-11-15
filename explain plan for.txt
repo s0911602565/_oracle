@@ -1,0 +1,2 @@
+explain plan for select * from JOHN.test where object_id < 1000;
+select * from table(dbms_xplan.display);

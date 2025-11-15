@@ -3,8 +3,8 @@ from
 (select 
 b.owner,a.column_name,a.num_distinct Cardinality,round(a.num_distinct / b.num_rows *100 , 2)selectivity
 from dba_tab_col_statistics a , dba_tables b
-where  
-a.owner = b.owner
+where  1=1
+and a.owner = b.owner
 and a.table_name = b.table_name
 and a.owner = 'JOHN'
 and a.table_name = 'TEST')

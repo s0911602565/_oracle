@@ -1,0 +1,9 @@
+ select 
+ blevel 索引高度,
+ leaf_blocks 葉子塊的個數,
+ clustering_factor 叢集因數,
+ status 狀態
+ from dba_indexes
+ where 1=1
+ and owner ='JOHN'
+ and index_name= 'IDX_T_STATS_ID'

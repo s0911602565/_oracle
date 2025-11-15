@@ -1,0 +1,14 @@
+👉 這是“真實有資料使用到的 blocks”。
+
+ 
+select count(distinct dbms_rowid.rowid_block_number(rowid)) blocks from 表名稱
+
+
+
+
+📌 差異總結
+
+指標				意義				包含空白 block？	可能大於實際資料？
+dba_tables.blocks		已分配的 block 數量		✔️ 是			✔️ 常常大於
+count(distinct block_number)	真正有資料的 block		❌ 否			❌ 不會
+ 

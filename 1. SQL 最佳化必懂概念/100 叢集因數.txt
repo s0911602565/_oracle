@@ -1,0 +1,21 @@
+規則
+select sum( case when block#1 =block#2 and file#1 = file#2 then 0 else 1 end) clustering_factor
+from
+(select dbms_rowid.rowid_relative_fno(rowid)file#1,
+lead(dbms_rowid.rowid_relative_fno(rowid),1,null) over(order by object_id)file#2,
+dbms_rowid.rowid_block_number(rowid) block#1,
+lead(dbms_rowid.rowid_block_number(rowid),1,null) over(order by object_id) block#2  from 1表名稱 where object_id is not null);
+
+
+範例
+select sum( case when block#1 =block#2 and file#1 = file#2 then 0 else 1 end) clustering_factor
+from
+(select dbms_rowid.rowid_relative_fno(rowid)file#1,
+lead(dbms_rowid.rowid_relative_fno(rowid),1,null) over(order by object_id)file#2,
+dbms_rowid.rowid_block_number(rowid) block#1,
+lead(dbms_rowid.rowid_block_number(rowid),1,null) over(order by object_id) block#2  from test where object_id is not null);
+
+
+
+
+
