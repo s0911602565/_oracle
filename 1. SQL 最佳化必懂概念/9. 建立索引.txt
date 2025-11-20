@@ -1,0 +1,10 @@
+-- 建立索引
+create index object_id_index on test(object_id)
+ 
+
+-- 找尋已建立索引
+SELECT * FROM dba_indexes   WHERE owner='JOHNLEE' and index_name = 'OBJECT_ID_INDEX'
+ 
+
+--  
+SELECT * FROM (SELECT OBJECT_ID , ROWID FROM TEST WHERE OBJECT_ID IS NOT NULL )
