@@ -1,0 +1,8 @@
+用途
+select * from Test
+
+-----------------------------------------------
+SELECT table_name, COUNT(*) AS column_count
+FROM user_tab_columns
+GROUP BY table_name
+ORDER BY column_count DESC;

@@ -1,0 +1,7 @@
+用途
+select count(1) from TableName
+
+--------------------------------
+SELECT table_name, num_rows
+FROM user_tables
+ORDER BY num_rows DESC;
